@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+  }
+  
+  #task-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  #task-input {
+    flex-grow: 1;
+    padding: 0.5rem;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  li .task-text {
+    flex-grow: 1;
+  }
+  
+  li .edit-button,
+  li .delete-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 0.5rem;
+  }
+  
+  li .edit-button {
+    color: #4CAF50;
+  }
+  
+  li .delete-button {
+    color: #f44336;
+  }
+  li.completed .task-text {
+    text-decoration: line-through;
+    color: #888;
+  }
+    
