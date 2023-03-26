@@ -1,5 +1,5 @@
 # Todo-App
-[INF1006H]Final Project
+[INF1006H] Final Project \
 A simple ToDo application built using HTMl, CSS, JavaScript, and Node.js with Express.
 
 ## Features
