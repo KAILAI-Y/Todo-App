@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // task
 const tasks = [];
+let taskId = 0;
 
 // API routes
 // GET route for retrieving all tasks
@@ -22,6 +23,7 @@ app.get('/tasks', (req, res) => {
 // POST route for creating a new task
 app.post('/tasks', (req, res) => {
     const task = req.body;
+    task.id = taskId++;
     tasks.push(task);
     res.status(201).json(task);
 });
@@ -33,6 +35,7 @@ app.put('/tasks/:id', (req, res) => {
 
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
     if(taskIndex !== -1){
+        updatedTask.id = taskId;
         tasks[taskIndex] = updatedTask;
         res.json(updatedTask);
     }else{
@@ -55,5 +58,5 @@ app.delete('/tasks/:id', (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });

@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 document.addEventListener('DOMContentLoaded', () => {
   const taskForm = document.getElementById('task-form');
   const taskInput = document.getElementById('task-input');
@@ -7,9 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //Fetch the tasks from the server
   fetch('/tasks')
-  .then((response) => response.json())
-  .then((tasks) => {tasks.forEach((task) => addTask(task));
-  });
+    .then((response) => response.json())
+    .then((tasks) => {
+      tasks.forEach((task) => addTask(task));
+    });
 
   taskForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const taskText = taskInput.value.trim();
     if (taskText) {
       createTask(taskText).then((task) => {
-        addTask(taskText);
+        addTask(task);
         taskInput.value = '';
       });
     }
@@ -30,9 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create a new <span> element to display the task text
     const span = document.createElement('span');
-    span.textContent = task;
+    span.textContent = task.text;
     span.classList.add('task-text');
     li.appendChild(span);
+    // console.log(task.text, task.id);
 
     // Create a new "Complete" button to toggle the completed status of the task
     const toggleButton = document.createElement('button');
@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     editButton.classList.add('edit-button');
     editButton.addEventListener('click', async() =>{
       // Prompt the user to enter the new task text and update the span if it is not empty
-      const newTaskText = prompt('Enter the new task text:', task);
+      const newTaskText = prompt('Enter the new task text:', task.text);
       if(newTaskText) {
-        task.next = newTaskText;
+        task.text = newTaskText;
         // pause the function execution until the task is updated on the server
         await updateTask(task);
         span.textContent = newTaskText;
@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(task.completed) {
       li.classList.add('completed');
     }
-
     return li;
   }
 
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateTask(task){
     return fetch(`/tasks/${task.id}`, {
       method: 'PUT',
-      header: {
+      headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(task),
@@ -112,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // deleteTask
   // send a DELETE request to server to delete the task
   function deleteTask(task) {
-    return fetch(`/task/${task.id}`, {
+    return fetch(`/tasks/${task.id}`, {
       method: 'DELETE',
     });
   }
